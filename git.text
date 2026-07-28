@@ -7,5 +7,5 @@ git remote add origin https://github.com/Asmual/FishPedia.git
 git push -u origin main
 
 git add .
-git commit -m "initial project setup typeScript and npm packages installed"
-git push -u origin main
+git commit -m "Implement full project structure: added MongoDB connection, Better Auth, Google OAuth, and organized components."
+git push
