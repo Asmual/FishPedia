@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from '@/lib/auth-client';
-import { 
-  FiSearch, 
-  FiShoppingCart, 
-  FiUser, 
-  FiLogOut, 
-  FiLayout, 
-  FiMenu, 
-  FiX 
+import {
+  FiSearch,
+  FiShoppingCart,
+  FiUser,
+  FiLogOut,
+  FiLayout,
+  FiMenu,
+  FiX,
 } from 'react-icons/fi';
 
 interface SearchResultItem {
@@ -25,17 +25,25 @@ interface SearchResultItem {
 export default function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
-  
-  // Local Component States
+
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
-  // Cart Count Mock State (Supports Dynamic Value)
   const [cartCount] = useState<number>(0);
 
-  // Mock Suggested Items for Search Instant Preview
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const mockSearchData: SearchResultItem[] = [
     { id: '1', title: 'Red Dragon Guppy', category: 'Fish', slug: 'red-dragon-guppy' },
     { id: '2', title: 'Halfmoon Betta Fighter', category: 'Fish', slug: 'halfmoon-betta' },
@@ -44,15 +52,15 @@ export default function Navbar() {
     { id: '5', title: 'Java Moss', category: 'Aquatic Plants', slug: 'java-moss' },
   ];
 
-  // Dynamic Search Suggestions Filtering
-  const filteredSuggestions = searchQuery.trim() === '' 
-    ? [] 
-    : mockSearchData.filter(item => 
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+  const filteredSuggestions =
+    searchQuery.trim() === ''
+      ? []
+      : mockSearchData.filter(
+          (item) =>
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.category.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
-  // Navigation Links Definition
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'All Fishes', path: '/fishes' },
@@ -60,23 +68,27 @@ export default function Navbar() {
     { name: 'Contact Us', path: '/contact' },
   ];
 
-  // User Role Resolution safely without 'any'
   const userRole = (session?.user as unknown as { role?: string })?.role || 'buyer';
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-slate-950/50 backdrop-blur-md border-b border-cyan-500/10 transition-all">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-[#051721]/90 backdrop-blur-md border-b border-cyan-500/10 shadow-lg shadow-slate-950/20'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          
-          {/* Logo Section */}
+        <div className="flex items-center justify-between h-16 sm:h-16">
+
           <Link href="/" className="flex items-center gap-2.5">
             <div className="relative w-9 h-9 shrink-0 overflow-hidden rounded-xl">
-              <Image 
-                src="/images/logo.png" 
-                alt="FishPedia Logo" 
-                fill 
+              <Image
+                src="/images/logo.png"
+                alt="FishPedia Logo"
+                fill
                 sizes="36px"
-                className="object-cover" 
+                className="object-cover"
                 priority
               />
             </div>
@@ -86,7 +98,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Navigation Items for Desktop */}
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => {
               const isActive = pathname === link.path;
@@ -109,10 +120,8 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Header Action Controls */}
           <div className="flex items-center gap-4 sm:gap-5">
-            
-            {/* Search Toggle Button and Dynamic Dropdown Anchor */}
+
             <div className="relative">
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -124,21 +133,19 @@ export default function Navbar() {
                 <FiSearch className="w-5 h-5" />
               </button>
 
-              {/* Minimal Search Input Bar attached directly under Search Icon */}
               {isSearchOpen && (
-                <div className="absolute right-0 top-10 z-50 w-38 sm:w-84">
+                <div className="absolute right-0 top-10 z-50 w-64 sm:w-84">
                   <input
                     type="text"
                     placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-slate-900 border border-cyan-500/40 rounded-md text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 shadow-lg"
+                    className="w-full px-3 py-2 text-xs bg-[#0a2531] border border-cyan-500/40 rounded-md text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 shadow-lg"
                     autoFocus
                   />
 
-                  {/* Real-time Search Suggestions */}
                   {searchQuery.trim() !== '' && (
-                    <div className="mt-1 bg-slate-900 border border-slate-800 rounded-md shadow-xl overflow-hidden max-h-48 overflow-y-auto">
+                    <div className="mt-1 bg-[#0a2531] border border-slate-800 rounded-md shadow-xl overflow-hidden max-h-48 overflow-y-auto">
                       {filteredSuggestions.length > 0 ? (
                         filteredSuggestions.map((item) => (
                           <Link
@@ -165,9 +172,8 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Cart Route with Dynamic Count Badge */}
-            <Link 
-              href="/cart" 
+            <Link
+              href="/cart"
               className="relative p-2 text-slate-300 hover:text-cyan-400 transition-colors"
               aria-label="View Cart"
             >
@@ -179,7 +185,6 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* Authentication & User Session Management */}
             {session?.user ? (
               <div className="relative">
                 <button
@@ -187,7 +192,7 @@ export default function Navbar() {
                   className="flex items-center gap-2 focus:outline-none"
                   aria-label="User Options"
                 >
-                  <div className="w-8 h-8 rounded-full overflow-hidden border border-cyan-500/50 hover:border-cyan-400 transition-colors relative bg-slate-900 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full overflow-hidden border border-cyan-500/50 hover:border-cyan-400 transition-colors relative bg-[#0a2531] flex items-center justify-center">
                     {session.user.image ? (
                       <Image
                         src={session.user.image}
@@ -202,10 +207,9 @@ export default function Navbar() {
                   </div>
                 </button>
 
-                {/* Profile Overview Dropdown Container */}
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-3 w-60 bg-slate-900 border border-cyan-500/20 rounded-xl shadow-xl py-2 z-50">
-                    
+                  <div className="absolute right-0 mt-3 w-60 bg-[#0a2531] border border-cyan-500/20 rounded-xl shadow-xl py-2 z-50">
+
                     <div className="px-4 py-2 border-b border-slate-800">
                       <div className="flex items-center justify-between mb-1">
                         <p className="text-sm font-semibold text-slate-100 truncate">
@@ -227,7 +231,7 @@ export default function Navbar() {
                         <FiLayout className="w-4 h-4" />
                         Overview
                       </Link>
-                      
+
                       <Link
                         href="/profile"
                         className="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition-colors"
@@ -263,7 +267,6 @@ export default function Navbar() {
               </Link>
             )}
 
-            {/* Mobile Hamburger Drawer Switch */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-slate-300 hover:text-cyan-400 focus:outline-none"
@@ -276,9 +279,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Responsive Menu Content */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-slate-950 border-b border-cyan-500/20 px-4 pt-2 pb-5 space-y-2">
+        <div className="md:hidden bg-[#051721]/95 backdrop-blur-md border-b border-cyan-500/20 px-4 pt-2 pb-5 space-y-2">
           {navLinks.map((link) => (
             <Link
               key={link.path}

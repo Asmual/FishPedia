@@ -1,4 +1,3 @@
-// 1. Defined Fish & Aquatic Product Categories
 export type FishCategory =
   | 'guppy'
   | 'molly'
@@ -9,15 +8,12 @@ export type FishCategory =
   | 'aquatic-plants'
   | 'accessories';
 
-// 2. Product Status & Condition
 export type FishStatus = 'available' | 'sold' | 'reserved';
 export type TemperamentType = 'peaceful' | 'semi-aggressive' | 'aggressive';
 export type WaterType = 'freshwater' | 'brackish' | 'saltwater';
 
-// 3. User Roles
 export type UserRole = 'user' | 'seller' | 'admin';
 
-// 4. User Profile Interface
 export interface IUser {
   id: string;
   name: string;
@@ -31,7 +27,6 @@ export interface IUser {
   updatedAt: Date;
 }
 
-// 5. Fish & Aquatic Item Document Interface
 export interface IFishProduct {
   _id?: string;
   id?: string;
@@ -49,8 +44,8 @@ export interface IFishProduct {
     phone?: string;
   };
   attributes?: {
-    size?: string; // e.g. "1.5 inches"
-    age?: string; // e.g. "3 months"
+    size?: string;
+    age?: string;
     temperament?: TemperamentType;
     waterType?: WaterType;
     origin?: string;
@@ -62,7 +57,6 @@ export interface IFishProduct {
   updatedAt: Date;
 }
 
-// 6. Search & Filter Parameters Interface
 export interface IFishFilterQuery {
   search?: string;
   category?: FishCategory;
@@ -74,7 +68,6 @@ export interface IFishFilterQuery {
   limit?: number;
 }
 
-// 7. Order / Buy-Sell Transaction Interface
 export interface IOrder {
   _id?: string;
   buyerId: string;
@@ -96,7 +89,6 @@ export interface IOrder {
   updatedAt: Date;
 }
 
-// 8. General API Response Structure
 export interface IApiResponse<T = unknown> {
   success: boolean;
   message: string;

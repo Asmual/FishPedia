@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "better-auth": "^1.6.25",
     "lucide-react": "^1.27.0",
     "mongodb": "^7.5.0",

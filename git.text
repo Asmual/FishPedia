@@ -7,5 +7,5 @@ git remote add origin https://github.com/Asmual/FishPedia.git
 git push -u origin main
 
 git add .
-git commit -m "feat(navbar): add responsive navbar with search and user menu"
+git commit -m "feat: finalize Hero & Footer sections with refined UI/UX"
 git push
