@@ -23,7 +23,7 @@ export default function Footer() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/footer-bg.jpg"
+          src="https://i.ibb.co.com/WWdSJ7kG/footer-bg.jpg"
           alt="Footer Background"
           fill
           sizes="100vw"
@@ -57,7 +57,7 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-2 -ml-2">
               <div className="relative w-64 h-16 shrink-0 overflow-hidden">
                 <Image 
-                  src="/images/fishpedia-logo.png" 
+                  src="https://i.ibb.co.com/xKWFSGYy/fishpedia-logo.png" 
                   alt="FishPedia Logo" 
                   fill 
                   sizes="350px"

@@ -45,6 +45,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "i.ibb.co", // ImgBB
       },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co.com",
+      },
     ],
   },
 };

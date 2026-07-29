@@ -8,5 +8,12 @@ git push -u origin main
 
 
 git add .
-git commit -m "feat(auth): integrate Better Auth with MongoDB and verify authentication flow"
+git commit -m "refactor(assets): migrate local images to ImageBB CDN and update next config"
 git push
+
+
+/imbb
+https://i.ibb.co.com/Y5hxKWQ/auth-bg.jpg
+https://i.ibb.co.com/xKWFSGYy/fishpedia-logo.png
+https://i.ibb.co.com/WWdSJ7kG/footer-bg.jpg
+https://i.ibb.co.com/bj45RSgG/hero-bg.jpg

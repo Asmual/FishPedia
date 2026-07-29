@@ -12,7 +12,7 @@ export default function HeroSection() {
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero-bg.jpg"
+          src="https://i.ibb.co.com/bj45RSgG/hero-bg.jpg"
           alt="Aquarium Background"
           fill
           priority

@@ -98,7 +98,7 @@ export default function LoginPage() {
       {/* Background Image with Dark Overlay & Minimal Blur */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/auth-bg.jpg"
+          src="https://i.ibb.co.com/Y5hxKWQ/auth-bg.jpg"
           alt="Auth Background"
           fill
           priority
@@ -121,7 +121,7 @@ export default function LoginPage() {
           <Link href="/" className="inline-flex items-center gap-2 group">
             <div className="relative w-35 h-11 shrink-0 overflow-hidden">
               <Image
-                src="/images/FishPedia-logo.png"
+                src="https://i.ibb.co.com/xKWFSGYy/fishpedia-logo.png"
                 alt="FishPedia Logo"
                 fill
                 sizes="110px"

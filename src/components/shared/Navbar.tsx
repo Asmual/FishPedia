@@ -84,7 +84,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5">
             <div className="relative w-35 h-9 shrink-0 overflow-hidden ">
               <Image
-                src="/Images/FishPedia-logo.png"
+                src="https://i.ibb.co.com/xKWFSGYy/fishpedia-logo.png"
                 alt="FishPedia Logo"
                 fill
                 sizes="200px"
