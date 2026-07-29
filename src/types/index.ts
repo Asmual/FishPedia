@@ -12,8 +12,7 @@ export type FishStatus = 'available' | 'sold' | 'reserved';
 export type TemperamentType = 'peaceful' | 'semi-aggressive' | 'aggressive';
 export type WaterType = 'freshwater' | 'brackish' | 'saltwater';
 
-export type UserRole = 'user' | 'seller' | 'admin';
-
+export type UserRole = 'buyer' | 'admin';
 export interface IUser {
   id: string;
   name: string;
@@ -37,12 +36,7 @@ export interface IFishProduct {
   quantity: number;
   category: FishCategory;
   images: string[];
-  sellerId: string;
-  sellerInfo?: {
-    name: string;
-    email: string;
-    phone?: string;
-  };
+  createdBy?: string;
   attributes?: {
     size?: string;
     age?: string;
@@ -71,7 +65,6 @@ export interface IFishFilterQuery {
 export interface IOrder {
   _id?: string;
   buyerId: string;
-  sellerId: string;
   productId: string;
   productDetails: {
     title: string;

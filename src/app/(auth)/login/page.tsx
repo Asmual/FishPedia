@@ -1,27 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { 
-  FiMail, 
-  FiLock, 
-  FiEye, 
-  FiEyeOff, 
-  FiArrowRight 
-} from 'react-icons/fi';
-import { FcGoogle } from 'react-icons/fc';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
+import { FcGoogle } from "react-icons/fc";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
 
   // Form State
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     rememberMe: false,
   });
 
@@ -34,7 +28,7 @@ export default function LoginPage() {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -46,36 +40,40 @@ export default function LoginPage() {
 
     // Basic Validations
     if (!email || !password) {
-      toast.error('Please enter both email and password!');
+      toast.error("Please enter both email and password!");
       return;
     }
 
     setLoading(true);
-    const toastId = toast.loading('Signing in to your account...');
+    const toastId = toast.loading("Signing in to your account...");
 
     try {
       // TODO: Replace with your actual NextAuth / Custom Auth Login API endpoint
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        toast.success('Welcome back to FishPedia!', { id: toastId });
-        setFormData({ email: '', password: '', rememberMe: false });
-        
+        toast.success("Welcome back to FishPedia!", { id: toastId });
+        setFormData({ email: "", password: "", rememberMe: false });
+
         // Redirect to Home or Dashboard
         setTimeout(() => {
-          router.push('/');
+          router.push("/");
         }, 1200);
       } else {
-        toast.error(data.message || 'Invalid email or password!', { id: toastId });
+        toast.error(data.message || "Invalid email or password!", {
+          id: toastId,
+        });
       }
     } catch (error) {
-      toast.error('Something went wrong. Please check your connection.', { id: toastId });
+      toast.error("Something went wrong. Please check your connection.", {
+        id: toastId,
+      });
     } finally {
       setLoading(false);
     }
@@ -83,50 +81,50 @@ export default function LoginPage() {
 
   // Google Sign In Handler
   const handleGoogleSignIn = () => {
-    toast('Connecting to Google Sign-In...');
+    toast("Connecting to Google Sign-In...");
   };
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#051721] overflow-hidden">
-      
       {/* Background Image with Dark Overlay & Minimal Blur */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/auth-bg.jpg"
+          src="/images/Auth-bg.jpg"
           alt="Auth Background"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-30"
+          className="object-cover object-center opacity-50"
         />
-        <div 
-          className="absolute inset-0 backdrop-blur-[2px]" 
+        <div
+          className="absolute inset-0 backdrop-blur-[2px]"
           style={{
-            background: 'linear-gradient(to bottom, rgba(5, 23, 33, 0.85), rgba(3, 14, 21, 0.95))'
+            background:
+              "linear-gradient(to bottom, rgba(5, 23, 33, 50%), rgba(3, 14, 21, 50%))",
           }}
         />
       </div>
 
       {/* Main Glassmorphism Form Container */}
       <div className="relative z-10 w-full max-w-md bg-[#0a2531]/80 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-cyan-950/50">
-        
         {/* Header & Logo Section */}
         <div className="flex flex-col items-center text-center space-y-3 mb-5">
           <Link href="/" className="inline-flex items-center gap-2 group">
             <div className="relative w-35 h-11 shrink-0 overflow-hidden">
-              <Image 
-                src="/images/FishPedia-logo.png" 
-                alt="FishPedia Logo" 
-                fill 
+              <Image
+                src="/images/FishPedia-logo.png"
+                alt="FishPedia Logo"
+                fill
                 sizes="110px"
-                className="object-cover" 
+                className="object-cover"
               />
             </div>
-            
           </Link>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-100">Welcome Back</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-100">
+              Welcome Back
+            </h2>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
               Log in to manage your aquatic catalog & profile
             </p>
@@ -136,8 +134,8 @@ export default function LoginPage() {
         {/* Focused Sign Up Link Box */}
         <div className="mb-6 p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-between gap-2 text-xs sm:text-sm">
           <span className="text-slate-300 font-medium">New to FishPedia?</span>
-          <Link 
-            href="/signup" 
+          <Link
+            href="/signup"
             className="inline-flex items-center gap-1 font-bold text-cyan-400 hover:text-cyan-300 hover:underline transition-all"
           >
             Create Account <FiArrowRight className="w-4 h-4" />
@@ -164,7 +162,6 @@ export default function LoginPage() {
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          
           {/* Email Input */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1.5">
@@ -192,7 +189,7 @@ export default function LoginPage() {
             <div className="relative">
               <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -205,7 +202,11 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-cyan-400 transition-colors"
               >
-                {showPassword ? <FiEyeOff className="w-4 h-4" /> : <FiEye className="w-4 h-4" />}
+                {showPassword ? (
+                  <FiEyeOff className="w-4 h-4" />
+                ) : (
+                  <FiEye className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>
@@ -223,8 +224,8 @@ export default function LoginPage() {
               <span>Remember me</span>
             </label>
 
-            <Link 
-              href="/forgot-password" 
+            <Link
+              href="/forgot-password"
               className="text-cyan-400 hover:text-cyan-300 hover:underline transition-all font-medium"
             >
               Forgot password?
@@ -237,10 +238,9 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full py-3 px-4 mt-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-sm font-extrabold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Logging in...' : 'Sign In'}
+            {loading ? "Logging in..." : "Sign In"}
           </button>
         </form>
-
       </div>
     </div>
   );

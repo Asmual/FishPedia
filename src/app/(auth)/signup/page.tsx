@@ -109,18 +109,18 @@ export default function SignUpPage() {
       {/* Background Image with Dark Overlay & Minimal Blur */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/auth-bg.jpg"
+          src="/images/Auth-bg.jpg"
           alt="Auth Background"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-30"
+          className="object-cover object-center opacity-50"
         />
         <div
           className="absolute inset-0 backdrop-blur-[2px]"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(5, 23, 33, 0.85), rgba(3, 14, 21, 0.95))",
+              "linear-gradient(to bottom, rgba(5, 23, 33, 50%), rgba(3, 14, 21, 50%))",
           }}
         />
       </div>
@@ -139,10 +139,6 @@ export default function SignUpPage() {
                 className="object-cover"
               />
             </div>
-            <span className="text-2xl font-black tracking-wider">
-              <span className="text-cyan-400">Fish</span>
-              <span className="text-slate-100">Pedia</span>
-            </span>
           </Link>
 
           <div>

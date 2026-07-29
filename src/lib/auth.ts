@@ -1,29 +1,24 @@
-import dns from 'node:dns';
-import { betterAuth } from 'better-auth';
-import { mongodbAdapter } from 'better-auth/adapters/mongodb';
-import clientPromise from './mongodb';
-
-try {
-  dns.setServers(['8.8.8.8', '1.1.1.1', '8.8.4.4']);
-} catch (error) {
-  console.warn('DNS servers set warning:', error);
-}
+import { betterAuth } from "better-auth";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import clientPromise from "./mongodb";
 
 const client = await clientPromise;
-const db = client.db('FishPedia');
+
+// Explicitly specifying the database name: Aquatic-PlantoPedia
+const db = client.db("FishPedia");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL,
   emailAndPassword: {
     enabled: true,
+    minPasswordLength: 6,
   },
-  user: {
-    additionalFields: {
-      role: {
-        type: 'string',
-        defaultValue: 'buyer', // Default Role: buyer
-        required: false,
-      },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
 });
