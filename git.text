@@ -8,7 +8,7 @@ git push -u origin main
 
 
 git add .
-git commit -m "refactor(assets): migrate local images to ImageBB CDN and update next config"
+git commit -m "feat(pages): add responsive Contact Us and animated 404 Not Found pages"
 git push
 
 

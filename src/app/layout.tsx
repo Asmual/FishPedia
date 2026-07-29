@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import Footer from "@/components/shared/Footer";
+import Navbar from "@/components/shared/Navbar";
 
 // Primary Font for Body Text
 const inter = Inter({
@@ -72,7 +74,9 @@ export default function RootLayout({
           }}
         />
 
+        <Navbar/>
         {children}
+        <Footer/>
       </body>
     </html>
   );
