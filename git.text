@@ -6,6 +6,7 @@ git branch -M main
 git remote add origin https://github.com/Asmual/FishPedia.git
 git push -u origin main
 
+
 git add .
-git commit -m "mongodb user password update"
+git commit -m "feat(auth): integrate Better Auth with MongoDB and verify authentication flow"
 git push

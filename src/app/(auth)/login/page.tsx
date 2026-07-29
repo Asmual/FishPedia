@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
+import { signIn } from "@/lib/auth-client";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function LoginPage() {
     }));
   };
 
-  // Form Submission Logic
+  // Form Submission Logic — now talks directly to better-auth
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -48,16 +49,21 @@ export default function LoginPage() {
     const toastId = toast.loading("Signing in to your account...");
 
     try {
-      // TODO: Replace with your actual NextAuth / Custom Auth Login API endpoint
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      const { data, error } = await signIn.email({
+        email,
+        password,
+        // rememberMe is optional – better-auth handles session duration via its config
+        // If you want longer sessions you can configure it in better-auth setup
       });
 
-      const data = await response.json();
+      if (error) {
+        toast.error(error.message || "Invalid email or password!", {
+          id: toastId,
+        });
+        return;
+      }
 
-      if (response.ok) {
+      if (data) {
         toast.success("Welcome back to FishPedia!", { id: toastId });
         setFormData({ email: "", password: "", rememberMe: false });
 
@@ -65,10 +71,6 @@ export default function LoginPage() {
         setTimeout(() => {
           router.push("/");
         }, 1200);
-      } else {
-        toast.error(data.message || "Invalid email or password!", {
-          id: toastId,
-        });
       }
     } catch (error) {
       toast.error("Something went wrong. Please check your connection.", {
@@ -79,9 +81,16 @@ export default function LoginPage() {
     }
   };
 
-  // Google Sign In Handler
-  const handleGoogleSignIn = () => {
-    toast("Connecting to Google Sign-In...");
+  // Google Sign In Handler — same as SignUp page
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch (error) {
+      toast.error("Could not connect to Google. Please try again.");
+    }
   };
 
   return (
@@ -89,7 +98,7 @@ export default function LoginPage() {
       {/* Background Image with Dark Overlay & Minimal Blur */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/Auth-bg.jpg"
+          src="/images/auth-bg.jpg"
           alt="Auth Background"
           fill
           priority
@@ -120,7 +129,6 @@ export default function LoginPage() {
               />
             </div>
           </Link>
-
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-100">
               Welcome Back
@@ -223,7 +231,6 @@ export default function LoginPage() {
               />
               <span>Remember me</span>
             </label>
-
             <Link
               href="/forgot-password"
               className="text-cyan-400 hover:text-cyan-300 hover:underline transition-all font-medium"

@@ -20,16 +20,15 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#051721] text-slate-300 border-t border-cyan-500/10 overflow-hidden">
       
-      {/* Background Image with Clear Visibility & Light Blur */}
+      {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/Footer-bg.jpg"
+          src="/images/footer-bg.jpg"
           alt="Footer Background"
           fill
           sizes="100vw"
           className="object-cover object-center opacity-40"
         />
-        {/* Soft Linear Overlay & Minimal Blur (No VS Code Warnings) */}
         <div 
           className="absolute inset-0 backdrop-blur-[1px]" 
           style={{
@@ -48,31 +47,32 @@ export default function Footer() {
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-125 h-50 bg-cyan-500/5 blur-[120px] pointer-events-none z-10" />
 
       {/* Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-10 border-b border-slate-800/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-8 border-b border-slate-800/80">
           
           {/* Brand Info Column */}
-          <div className="lg:col-span-2 space-y-4">
-            {/* Logo Section */}
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="relative w-35 h-9 shrink-0 overflow-hidden">
+          <div className="lg:col-span-2">
+            
+            {/* Extra Large Logo with Reduced Top/Bottom Spacing */}
+            <Link href="/" className="inline-block mb-2 -ml-2">
+              <div className="relative w-64 h-16 shrink-0 overflow-hidden">
                 <Image 
-                  src="/images/FishPedia-logo.png" 
+                  src="/images/fishpedia-logo.png" 
                   alt="FishPedia Logo" 
                   fill 
-                  sizes="200px"
-                  className="object-cover" 
+                  sizes="350px"
+                  className="object-contain object-left scale-110" 
+                  priority
                 />
               </div>
-              
             </Link>
 
-            <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed mb-4">
               Your trusted destination for healthy exotic fishes, vibrant aquatic plants, and high-quality aquascaping essentials for your modern home sanctuary.
             </p>
 
             {/* Social Links */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3">
               {[
                 { icon: FiFacebook, href: '#', label: 'Facebook' },
                 { icon: FiInstagram, href: '#', label: 'Instagram' },
@@ -158,8 +158,8 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar (Copyright & Credits) */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        {/* Bottom Bar */}
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>© {currentYear} FishPedia. All rights reserved.</p>
           
           <p className="flex items-center gap-1">

@@ -15,6 +15,7 @@ import {
 } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
+import { signUp, signIn } from "@/lib/auth-client";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function SignUpPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Form Submission Logic
+  // Form Submission Logic — now talks directly to better-auth, no custom backend needed
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -63,15 +64,20 @@ export default function SignUpPage() {
     const toastId = toast.loading("Creating your account...");
 
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, password }),
+      const { data, error } = await signUp.email({
+        email,
+        password,
+        name: fullName,
       });
 
-      const data = await response.json();
+      if (error) {
+        toast.error(error.message || "Registration failed! Please try again.", {
+          id: toastId,
+        });
+        return;
+      }
 
-      if (response.ok) {
+      if (data) {
         toast.success("Account created successfully! Redirecting...", {
           id: toastId,
         });
@@ -85,10 +91,6 @@ export default function SignUpPage() {
         setTimeout(() => {
           router.push("/login");
         }, 1500);
-      } else {
-        toast.error(data.message || "Registration failed! Please try again.", {
-          id: toastId,
-        });
       }
     } catch (error) {
       toast.error("Something went wrong. Please check your connection.", {
@@ -99,9 +101,16 @@ export default function SignUpPage() {
     }
   };
 
-  // Google Sign In Handler
-  const handleGoogleSignIn = () => {
-    toast("Connecting to Google Sign-In...", { icon: "🚀" });
+  // Google Sign In Handler — routes through better-auth's social sign-in flow
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch (error) {
+      toast.error("Could not connect to Google. Please try again.");
+    }
   };
 
   return (
@@ -132,7 +141,7 @@ export default function SignUpPage() {
           <Link href="/" className="inline-flex items-center gap-2.5 group">
             <div className="relative w-35 h-11 shrink-0 overflow-hidden">
               <Image
-                src="/images/FishPedia-logo.png"
+                src="/images/fishpedia-logo.png"
                 alt="FishPedia Logo"
                 fill
                 sizes="110px"

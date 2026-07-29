@@ -12,21 +12,21 @@ export default function HeroSection() {
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/Hero_bg.jpg"
+          src="/images/hero-bg.jpg"
           alt="Aquarium Background"
           fill
           priority
-          quality={100}
+          quality={85}
           sizes="100vw"
           className="object-cover object-center"
         />
 
-        {/* Overlay for optimal readability with Glassmorphic Navbar */}
+        {/* Overlay for optimal readability */}
         <div className="absolute inset-0 bg-slate-950/45" />
         <div className="absolute inset-0 bg-linear-to-b from-slate-950/60 via-slate-950/20 to-slate-950/90" />
       </div>
 
-      {/* Content Container (Compact Single Screen View) */}
+      {/* Content Container */}
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 w-full pt-20 sm:pt-24 flex flex-col items-center text-center">
 
         {/* Promotional Offer Badge */}
