@@ -7,5 +7,5 @@ git remote add origin https://github.com/Asmual/FishPedia.git
 git push -u origin main
 
 git add .
-git commit -m "feat: finalize Hero & Footer sections with refined UI/UX"
+git commit -m "feat: design responsive authentication pages (login and signup) with react-hot-toast"
 git push

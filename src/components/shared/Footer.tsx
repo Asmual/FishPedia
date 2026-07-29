@@ -55,19 +55,16 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             {/* Logo Section */}
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="relative w-9 h-9 shrink-0 overflow-hidden rounded-xl border border-cyan-500/30">
+              <div className="relative w-35 h-9 shrink-0 overflow-hidden">
                 <Image 
-                  src="/images/logo.png" 
+                  src="/images/FishPedia-logo.png" 
                   alt="FishPedia Logo" 
                   fill 
-                  sizes="36px"
+                  sizes="200px"
                   className="object-cover" 
                 />
               </div>
-              <span className="text-xl font-extrabold tracking-wider">
-                <span className="text-cyan-400">Fish</span>
-                <span className="text-slate-100">Pedia</span>
-              </span>
+              
             </Link>
 
             <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">

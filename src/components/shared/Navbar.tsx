@@ -82,20 +82,17 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-16">
 
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="relative w-9 h-9 shrink-0 overflow-hidden rounded-xl">
+            <div className="relative w-35 h-9 shrink-0 overflow-hidden ">
               <Image
-                src="/images/logo.png"
+                src="/Images/FishPedia-logo.png"
                 alt="FishPedia Logo"
                 fill
-                sizes="36px"
+                sizes="200px"
                 className="object-cover"
                 priority
               />
             </div>
-            <span className="text-xl font-extrabold tracking-wider">
-              <span className="text-cyan-400">Fish</span>
-              <span className="text-slate-100">Pedia</span>
-            </span>
+            
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
