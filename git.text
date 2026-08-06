@@ -8,7 +8,7 @@ git push -u origin main
 
 
 git add .
-git commit -m "feat(pages): add responsive Contact Us and animated 404 Not Found pages"
+git commit -m "Add loading File"
 git push
 
 
