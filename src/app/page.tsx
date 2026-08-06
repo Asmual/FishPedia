@@ -1,5 +1,4 @@
 import HeroSection from "@/components/home/HeroSection";
-import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 
 export default function Home() {
@@ -9,7 +8,6 @@ export default function Home() {
       <main className="grow">
         <HeroSection />
       </main>
-      <Footer />
     </div>
   );
 }

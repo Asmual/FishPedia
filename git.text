@@ -8,7 +8,7 @@ git push -u origin main
 
 
 git add .
-git commit -m "Add loading File"
+git commit -m "Update Footer Section Double Problem Fixed"
 git push
 
 
