@@ -9,6 +9,16 @@ const db = client.db("FishPedia");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "buyer",
+        input: false,
+      },
+    },
+  },
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL,
   emailAndPassword: {
